@@ -1,5 +1,8 @@
-package org.example;
+package org.example.Loader;
 
+
+import org.example.Automat.Automat;
+import org.example.PrechodovaFunkce;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

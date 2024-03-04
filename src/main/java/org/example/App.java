@@ -1,8 +1,13 @@
 package org.example;
 
+import org.example.Automat.Automat;
+import org.example.Automat.KonecnyAutomat;
+import org.example.Loader.AutomatLoader;
+import org.example.Loader.KonecnyAutomatLoader;
+
 import java.io.IOException;
 
-import static org.example.AutomatLoader.loadAutomatFromFile;
+import static org.example.Loader.AutomatLoader.loadAutomatFromFile;
 
 /**
  * Hello world!
@@ -11,27 +16,27 @@ import static org.example.AutomatLoader.loadAutomatFromFile;
 public class App 
 {
     public static void main( String[] args ) throws IOException {
-        String[] string_array = {"Ab", "A2", "aa", "a5", "á_", "Á."};
+        String[] cislo_array = {"12", "+12", "1.5", "-50", "ss", "+a"};
+        String[] ident_array = {"aa", "22", "a2", "-1", "-a", "+a"};
 
-        Automat automat = loadAutomatFromFile("src/main/java/org/example/automat.txt");
-        if (automat != null) {
-            System.out.println("Automat načten ze souboru:");
-            System.out.println("Počáteční stav: " + automat.getPocatecniStav());
-            System.out.println("Pravidla přechodu:");
-            for (int i = 0; i < automat.getPravidlaPechodu().length; i++) {
-                System.out.println(automat.getPravidlaPechodu()[i].getPocatecniStav() + " -> " + automat.getPravidlaPechodu()[i].getPrechodovaFunkce() + " -> " + automat.getPravidlaPechodu()[i].getKoncovyStav());
+        KonecnyAutomat cislo = KonecnyAutomatLoader.loadAutomatFromFile("src/main/java/org/example/files/cislo.txt");
+        KonecnyAutomat ident = KonecnyAutomatLoader.loadAutomatFromFile("src/main/java/org/example/files/konecnyAutomat.txt");
+
+        if(cislo != null ){
+            System.out.println("\nčíslo");
+            for (int j = 0; j < cislo_array.length; j++){
+                System.out.println(cislo.match(cislo_array[j]));
             }
-            for (String text: string_array){
-                System.out.println(automat.match(text));
+        }else {
+            System.out.println("Chyba při načítání automatu ze souboru.");
+        }
 
+        if(ident != null ){
+            System.out.println("\nidentifikátor");
+            for (int j = 0; j < ident_array.length; j++){
+                System.out.println(ident.match(ident_array[j]));
             }
-
-            System.out.println("\n cele číslo");
-            System.out.println(automat.jeCeleCislo("123"));
-            System.out.println(automat.jeCeleCislo("-456"));
-            System.out.println(automat.jeCeleCislo("abc"));
-            System.out.println(automat.jeCeleCislo("12abc"));
-        } else {
+        }else {
             System.out.println("Chyba při načítání automatu ze souboru.");
         }
     }

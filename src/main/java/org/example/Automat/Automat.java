@@ -1,4 +1,6 @@
-package org.example;
+package org.example.Automat;
+
+import org.example.PrechodovaFunkce;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
